@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Dubai Luxury Tour | AeroSync</title>
+  <style>
+    body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url("aeroplane.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #0f0f0f;
+    text-align: center;
+}
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h1 { color: #0d0d0d; margin-bottom: 20px; }
+    label { display: block; margin: 10px 0 5px; }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: orange;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: deeppink;
+    }
+    #price-display {
+      font-size: 16px;
+      margin-top: -10px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+  </style>
+  <script>
+    function updatePrice() {
+      const guests = document.getElementById('guests').value;
+      const pricePerPerson = 89999;
+      const total = guests * pricePerPerson;
+      document.getElementById('price-display').innerText = `Total Price: ₹${total.toLocaleString()}`;
+    }
+    function generatePDF(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const guests = document.getElementById('guests').value;
+      const date = document.getElementById('date').value;
+      const notes = document.getElementById('notes').value;
+      const totalPrice = pricePerPerson * guests;
+
+      const confirmation = `Booking Confirmation\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nGuests: ${guests}\nDate: ${date}\nTotal Price: ₹${totalPrice.toLocaleString()}\n\nSpecial Requests:\n${notes}`;
+
+      const blob = new Blob([confirmation], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Dubai-Booking-Confirmation.txt';
+      a.click();
+
+      URL.revokeObjectURL(url);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('guests').addEventListener('input', updatePrice);
+      updatePrice();
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <img src="logo.webp" alt="AeroSync Logo" style="width: 100px; height: auto;">
+    <h1>Book Your Dubai Luxury Tour</h1>
+  </header>
+  <div class="container">
+    <form action="#" method="POST">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="guests">Number of Guests</label>
+      <input type="number" id="guests" name="guests" min="1" value="1" required>
+      <div id="price-display">Total Price: ₹89,999</div>
+
+      <label for="date">Preferred Travel Date</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="notes">Special Requests</label>
+      <textarea id="notes" name="notes" rows="4"></textarea>
+
+      <button type="submit">Submit Booking</button>
+    </form>
+  </div>
+  <footer>
+    <p>&copy; 2025 AeroSync — Your Travel Partner</p>
+  </footer>
+</body>
+</html>

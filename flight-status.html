@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Status | AeroSync Airlines</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('aeroplane.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 40px;
+            background: linear-gradient(to right, orange, deeppink);
+            color: white;
+        }
+        header img {
+            height: 50px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .status-form-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .status-form-container h2 {
+            margin-bottom: 20px;
+        }
+        .status-form-container input,
+        .status-form-container select {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+        .status-form-container button {
+            width: 95%;
+            padding: 12px;
+            background: #5a3b36;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .status-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 1000px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .status-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .status-card {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .status-card h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .flight-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            gap: 20px;
+        }
+        .flight-details div {
+            flex: 1;
+        }
+        .status-indicator {
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 12px;
+            color: white;
+        }
+        .on-time { background: green; }
+        .delayed { background: red; }
+        footer {
+            background: linear-gradient(to right, orange, deeppink);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            margin-top: 40px;
+            border-radius: 10px 10px 0 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <img src="logo.webp" alt="AeroSync Logo">
+    <h1>Check your flight status</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="booking.html">Booking</a>
+        <a href="fllight-status.html">Flight Status</a>
+        <a href="payment.html">Payment</a>
+        <a href="contact.html">Contact</a>
+        <a href="hotels.html">Hotels</a>
+        <a href="holiday-packages.html">Packages</a>
+        <a href="about.html">About</a>
+    </nav>
+</header>
+
+<div class="status-form-container">
+    <h2>Check Flight Status</h2>
+    <label>Flight Number</label>
+    <input type="text" placeholder="e.g., AS123">
+
+    <label>Flight Date</label>
+    <input type="date">
+
+    <label>Airline</label>
+    <select>
+        <option>All Airlines</option>
+        <option>AeroSync</option>
+        <option>SkyFly</option>
+        <option>GlobalWings</option>
+    </select>
+
+    <button>Check Status</button>
+</div>
+
+<div class="status-container">
+    <h2>Flight Status Result</h2>
+
+    <div class="status-card">
+        <h3>
+            <span>Flight AS123 • New York (JFK) to London (LHR)</span>
+            <span class="status-indicator on-time">On Time</span>
+        </h3>
+        <div class="flight-details">
+            <div>
+                <p><strong>Departure:</strong></p>
+                <p>08:00 AM (Scheduled)</p>
+                <p>Terminal 4, Gate B12</p>
+            </div>
+            <div>
+                <p><strong>Arrival:</strong></p>
+                <p>08:00 PM (Scheduled)</p>
+                <p>Terminal 5</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-card">
+        <h3>
+            <span>Flight AS456 • Los Angeles (LAX) to Tokyo (HND)</span>
+            <span class="status-indicator delayed">Delayed</span>
+        </h3>
+        <div class="flight-details">
+            <div>
+                <p><strong>Departure:</strong></p>
+                <p>10:00 AM (Scheduled)</p>
+                <p>11:30 AM (Estimated)</p>
+                <p>Terminal 7, Gate A5</p>
+            </div>
+            <div>
+                <p><strong>Arrival:</strong></p>
+                <p>02:00 PM (Scheduled)</p>
+                <p>03:30 PM (Estimated)</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 AeroSync Airlines. All Rights Reserved.</p>
+    <p>Contact: support@aerosync.com | +1 (800) 555-1234</p>
+</footer>
+
+</body>
+</html>

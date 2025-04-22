@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AeroSync - Hotel Booking</title>
+
+  <!-- jsPDF Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('aeroplane.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(45deg, #ff7e5f, #feb47b);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav li {
+      display: inline-block;
+      margin: 0 15px;
+      list-style: none;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      margin: 40px auto;
+      border-radius: 12px;
+      max-width: 900px;
+      width: 90%;
+      flex-grow: 1;
+      box-shadow: 0 0 25px rgba(0,0,0,0.2);
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    .popup-btn {
+      background: linear-gradient(45deg, #ff7e5f, #feb47b);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 6px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .popup-btn:hover {
+      background: linear-gradient(45deg, #feb47b, #ff7e5f);
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      z-index: 1001;
+      width: 300px;
+    }
+    .popup h2 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #333;
+    }
+    .popup label {
+      display: block;
+      margin: 12px 0 5px;
+      font-weight: bold;
+    }
+    .popup select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+    footer {
+      background: linear-gradient(45deg, #ff7e5f, #feb47b);
+      text-align: center;
+      color: white;
+      padding: 15px 0;
+      margin-top: auto;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="logo.webp" alt="AeroSync Logo" style="width: 100px; height: auto;">
+  <h1>Aerosync Hotel Booking</h1>
+  <nav>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="booking.html">Booking</a></li>
+    <li><a href="flight-status.html">Flight Status</a></li>
+    <li><a href="payment.html">Payment</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="hotels.html">Hotels</a></li>
+    <li><a href="holiday-packages.html">Packages</a></li>
+    <li><a href="about.html">About</a></li>
+  </nav>            
+</header>
+
+<div class="container">
+  <form>
+    <label for="location">Name / Place / Location <span style="font-weight:normal;">(Optional)</span>:</label>
+    <input list="locations" id="location" name="location" placeholder="Choose or enter a place">
+    <datalist id="locations">
+      <option value="Los Angeles"></option>
+      <option value="Bangkok"></option>
+      <option value="Dubai"></option>
+      <option value="Sydney"></option>
+      <option value="Singapore"></option>
+      <option value="Toronto"></option>
+      <option value="Paris"></option>
+      <option value="New York"></option>
+      <option value="Tokyo"></option>
+    </datalist>
+
+    <label for="checkin">Check-in Date:</label>
+    <input type="date" id="checkin" required>
+
+    <label for="checkout">Check-out Date:</label>
+    <input type="date" id="checkout" required>
+
+    <button type="button" class="popup-btn" onclick="showPopup()">Select Rooms & Guests</button>
+
+    <div id="selectionSummary" style="margin-top:20px;"></div>
+
+    <button type="button" class="popup-btn" onclick="downloadPDF()">Download Room Details (PDF)</button>
+
+    <button type="submit" class="popup-btn">Book Now</button>
+  </form>
+</div>
+
+<!-- Popup for Rooms & Guests -->
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+  <h2>Rooms & Guests</h2>
+  <label for="rooms">Rooms</label>
+  <select id="rooms">
+    <option value="1">1 Room</option>
+    <option value="2">2 Rooms</option>
+    <option value="3">3 Rooms</option>
+    <option value="4">4 Rooms</option>
+  </select>
+
+  <label for="adults">Adults</label>
+  <select id="adults">
+    <option value="1">1 Adult</option>
+    <option value="2">2 Adults</option>
+    <option value="3">3 Adults</option>
+    <option value="4">4 Adults</option>
+  </select>
+
+  <label for="children">Children</label>
+  <select id="children">
+    <option value="0">0 Child</option>
+    <option value="1">1 Child</option>
+    <option value="2">2 Children</option>
+    <option value="3">3 Children</option>
+  </select>
+
+  <button class="popup-btn" type="button" onclick="applySelection()">Apply</button>
+</div>
+
+<footer>
+  © 2025 AeroSync. All rights reserved.
+</footer>
+
+<script>
+  function showPopup() {
+    document.getElementById('popup').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+  }
+
+  function applySelection() {
+    const rooms = document.getElementById('rooms').value;
+    const adults = document.getElementById('adults').value;
+    const children = document.getElementById('children').value;
+
+    document.getElementById('selectionSummary').innerHTML =
+      `<strong>Selected:</strong> ${rooms} Room(s), ${adults} Adult(s), ${children} Child(ren)`;
+
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+  }
+
+  async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const location = document.getElementById('location').value || "Not specified";
+    const checkin = document.getElementById('checkin').value;
+    const checkout = document.getElementById('checkout').value;
+    const rooms = document.getElementById('rooms').value;
+    const adults = document.getElementById('adults').value;
+    const children = document.getElementById('children').value;
+
+    doc.setFontSize(16);
+    doc.text("AeroSync Hotel Booking Summary", 20, 20);
+    doc.setFontSize(12);
+    doc.text(`Location: ${location}`, 20, 40);
+    doc.text(`Check-in Date: ${checkin}`, 20, 50);
+    doc.text(`Check-out Date: ${checkout}`, 20, 60);
+    doc.text(`Rooms: ${rooms}`, 20, 70);
+    doc.text(`Adults: ${adults}`, 20, 80);
+    doc.text(`Children: ${children}`, 20, 90);
+
+    doc.save("BookingDetails.pdf");
+  }
+</script>
+
+</body>
+</html>

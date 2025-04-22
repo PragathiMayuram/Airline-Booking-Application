@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aerosync Airlines - Book Your Flight</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="showLoginFirst()">
+
+<!-- Login Modal -->
+<div id="loginModal" style="display:flex; justify-content:center; align-items:center; position:fixed; z-index:999; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.8) url('aeroplane.jpg') no-repeat center center fixed; background-size:cover;">
+    <div style="background:white; padding:30px; border-radius:10px; text-align:center; width:300px; color:black;">
+        <h2>Login to AeroSync</h2>
+        <input type="email" placeholder="Email" style="width:90%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;" required><br>
+        <input type="password" placeholder="Password" style="width:90%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;" required><br>
+        <button onclick="loginSuccess()" style="width:100%; padding:12px; background: linear-gradient(90deg, orange, deeppink); border:none; border-radius:5px; color:white; font-size:16px; cursor:pointer;">Login</button>
+        <p style="margin-top: 15px;">Don't have an account? <a href="#" onclick="switchToRegister()">Register</a></p>
+    </div>
+</div>
+
+<!-- Registration Modal -->
+<div id="registerModal" style="display:none; justify-content:center; align-items:center; position:fixed; z-index:999; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.8) url('aeroplane.jpg') no-repeat center center fixed; background-size:cover;">
+    <div style="background:white; padding:30px; border-radius:10px; text-align:center; width:300px; color:black;">
+        <h2>Register with AeroSync</h2>
+        <input type="text" placeholder="Full Name" style="width:90%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;" required><br>
+        <input type="email" placeholder="Email" style="width:90%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;" required><br>
+        <input type="password" placeholder="Password" style="width:90%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;" required><br>
+        <button onclick="registerSuccess()" style="width:100%; padding:12px; background: linear-gradient(90deg, orange, deeppink); border:none; border-radius:5px; color:white; font-size:16px; cursor:pointer;">Register</button>
+        <p style="margin-top: 15px;">Already have an account? <a href="#" onclick="switchToLogin()">Login</a></p>
+    </div>
+</div>
+
+<div id="mainContent" style="display:none;">
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.webp" alt="Aerosync Logo">
+                <h1>Aerosync Airlines</h1>
+            </div>
+            <!-- Toggle button for mobile -->
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <!-- Navigation menu -->
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booking.html">Book Ticket</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="flight-status.html">Flight Status</a></li>
+                <li><a href="payment.html">Payment</a></li>
+                <li><a href="hotels.html">Hotels</a></li>
+                <li><a href="holiday-packages.html">Packages</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#" onclick="openLogin()">Login</a></li>
+                <li><a href="#" onclick="openRegister()">Register</a></li>
+            </ul>
+           
+        </nav>
+    </header>
+
+    <section class="offer-banner">
+        <div class="offer-text">
+            ✈️ <strong>Summer Sale:</strong> “✈️ Fly High with Us! Free Meal + Extra Luggage Offer Ends Soon!”
+        </div>
+        
+    </section>
+
+    <section class="hero">
+        <h1>Explore the Skies with Us!</h1>
+        <h2>Your Gateway to Seamless Travel</h2>
+        <p>At Aerosync Airlines, we make booking flights easy, fast, and convenient.</p>
+        <p>Find the best flights at unbeatable prices!</p>
+        <a href="booking.html"><button class="cta-button">Get Started</button></a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Aerosync Airlines. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<script>
+function showLoginFirst() {
+    document.getElementById('loginModal').style.display = 'flex';
+    document.getElementById('mainContent').style.display = 'none';
+}
+function loginSuccess() {
+    document.getElementById('loginModal').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+}
+function openLogin() {
+    document.getElementById('loginModal').style.display = 'flex';
+    document.getElementById('registerModal').style.display = 'none';
+}
+function openRegister() {
+    document.getElementById('registerModal').style.display = 'flex';
+    document.getElementById('loginModal').style.display = 'none';
+}
+function switchToRegister() {
+    openRegister();
+}
+function switchToLogin() {
+    openLogin();
+}
+function registerSuccess() {
+    alert('Registration successful! You can now log in.');
+    openLogin();
+}
+</script>
+</body>
+</html>

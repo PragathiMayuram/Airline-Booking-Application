@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <img src="logo.webp" alt="AeroSync Logo" style="width: 100px; height: auto;">
+    <h1>AeroSync Flight Booking</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="booking.html">Booking</a></li>
+        <li><a href="flight-status.html">Flight Status</a></li>
+        <li><a href="payment.html">Payment</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="hotels.html">Hotels</a></li>
+        <li><a href="holiday-packages.html">Packages</a></li>
+        <li><a href="about.html">About</a></li>
+
+      </ul>
+    </nav>
+  </header>  
+
+  <section id="booking" class="booking-form">
+    <h2>Book Your Flight</h2>
+    <form id="flightForm" action="payment.html" method="GET">
+        
+        
+        
+        <label for="from">From:</label>
+        <select id="from" name="from" required>
+            <option value="" disabled selected>Select Departure City</option>
+            <option value="JFK">New York (JFK)</option>
+            <option value="LAX">Los Angeles (LAX)</option>
+            <option value="ORD">Chicago (ORD)</option>
+            <option value="LHR">London (LHR)</option>
+            <option value="DXB">Dubai (DXB)</option>
+            <option value="CDG">Paris (CDG)</option>
+            <option value="HND">Tokyo (HND)</option>
+            <option value="SYD">Sydney (SYD)</option>
+            <option value="YYZ">Toronto (YYZ)</option>
+            <option value="BOM">Mumbai (BOM)</option>
+        </select>
+        <label for="to">To:</label>
+        <select id="to" name="to" required>
+            <option value="" disabled selected>Select Destination City</option>
+            <option value="JFK">New York (JFK)</option>
+            <option value="LAX">Los Angeles (LAX)</option>
+            <option value="ORD">Chicago (ORD)</option>
+            <option value="LHR">London (LHR)</option>
+            <option value="DXB">Dubai (DXB)</option>
+            <option value="CDG">Paris (CDG)</option>
+            <option value="HND">Tokyo (HND)</option>
+            <option value="SYD">Sydney (SYD)</option>
+            <option value="YYZ">Toronto (YYZ)</option>
+            <option value="BOM">Mumbai (BOM)</option>
+        </select>
+
+    <label for="travelDate">Travel Date:</label>
+    <input type="date" id="travelDate" required />
+
+    <label for="passengers">Number of Passengers:</label>
+    <input type="number" id="passengers" min="1" value="1" onchange="renderSeatSelection()" />
+
+    <div id="seatSelectionContainer"></div>
+
+    <h3>Total Price: <span id="totalPrice">$100</span></h3>
+
+    <button onclick="proceedToPayment()">Proceed to Payment</button>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Fly High Airlines. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
