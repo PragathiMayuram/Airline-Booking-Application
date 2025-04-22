@@ -1,0 +1,1 @@
+The Airline Booking Application is a user-friendly digital platform designed to streamline the process of searching, booking, and managing airline travel. It allows users to browse available flights, compare prices, select seats, and make secure payments — all from a desktop or mobile device.
